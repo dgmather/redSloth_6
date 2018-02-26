@@ -1,6 +1,7 @@
 rm(list=ls())
 library(dplyr)
 library(tidyverse)
+library(magrittr)
 # library(reshape2)
 
 ns <- seq(40,1000,24)
@@ -38,11 +39,25 @@ tt <- function(nn,m=mus) {
   v <- mapply(reject, m=mus)
   return(v)
 } 
-tt(nn=1000)
+# tt(nn=1000)
 
 ss <- as.data.frame(mapply(tt,nn=ns))
 names(ss)<-ns
 row.names(ss) <- mus
 
 
-ggplot(aes(x=mus,y=ns),data=ss) + geom_tile()
+ss2 <- ss %>%
+  rownames_to_column() %>%
+  gather(colname, value, -rowname)
+head(ss2)
+
+ss2$rowname <- as.character(ss2$rowname)
+ss2$rowname <- factor(ss2$rowname,levels=unique(ss2$rowname))
+
+ss2$colname <- as.character(ss2$colname)
+ss2$colname <- factor(ss2$colname,levels=unique(ss2$colname))
+
+
+
+ggplot(ss2, aes(x = rowname, y = colname, fill = value)) +
+  geom_tile()
