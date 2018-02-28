@@ -2,7 +2,6 @@ rm(list=ls())
 library(dplyr)
 library(tidyverse)
 library(magrittr)
-# library(reshape2)
 
 ns <- seq(40,1000,24)
 
@@ -16,21 +15,13 @@ t.test(obs)
 test <- function(n=40,mu=-1) {
   obs<- rnorm(n,mu)
   t <- t.test(obs)
-  # return((mean(obs))
-  # return(t$statistic)
+
   return(as.numeric(abs(t$statistic)>1.96))
-  # return(cbind(mean(obs),t$statistic,as.numeric(abs(t$statistic)>1.96)))
 }
 
-# tt <- mapply(test,n=ns)
-
-# pars <- cbind(40,-5)
 
 
 
- # reject(mu=0.50)
-# tt<-mapply(reject,mu=mus)
- 
 tt <- function(nn,m=mus) {
   reject <- function(n=nn,mu=-1,s=100){
     sims <- replicate(s,test(n,mu))
