@@ -44,7 +44,12 @@ colnames(N) <- c("n", as.character(1:29))
 
 ## Heat Map
 ```{r heatmap}
-ggplot(data = M, aes(x = factor(u), y = factor(n))) + geom_tile(aes(fill = G)) + theme(axis.text = element_blank()) + xlab(expression(mu)) + ylab("n") + scale_fill_continuous(guide = guide_legend(title = "% reject"), limits=c(0, 1), breaks=seq(0,1,by=0.05))
+ggplot(data = M, aes(x = factor(u), y = factor(n))) + geom_tile(aes(fill = G)) + 
+  theme(axis.text = element_blank()
+        , axis.title=element_text(size=24,face="bold")) + 
+  xlab(expression(mu)) + 
+  ylab("n") + 
+  scale_fill_continuous(guide = guide_colourbar(title = "% reject", title.position="left"), limits=c(0, 1))
 ```
 
 ## Power: Analytic solution
@@ -65,7 +70,9 @@ ggplot(data = U) +
   geom_line(aes(x=u, y = 1 - pnorm(1.96 - 5*u) + pnorm(-1.96 - 5*u))) +
   geom_line(aes(x=u, y=`36`), linetype = "dashed", color = "blue") + 
   geom_line(aes(x=u, y = 1 - pnorm(1.96 - 6*u) + pnorm(-1.96 - 6*u))) + 
-  ylab(expression(pi)) + xlab(expression(mu))
+  ylab(expression(pi)) + xlab(expression(mu)) + 
+  theme(axis.text = element_text(size=20)
+        , axis.title = element_text(size=24,face="bold"))
 ```
 
 ## Power: Graph with fixed $\mu$
@@ -77,5 +84,7 @@ ggplot(data = N) +
   geom_line(aes(x=n, y = 1 - pnorm(1.96 - sqrt(n)*u[18]) + pnorm(-1.96 - sqrt(n)*u[18]))) +
   geom_line(aes(x=n, y=`1`), linetype = "dashed", color = "blue") + 
   geom_line(aes(x=n, y = 1 - pnorm(1.96 - sqrt(n)*u[1]) + pnorm(-1.96 - sqrt(n)*u[1]))) +
-  ylab(expression(pi))
+  ylab(expression(pi)) + 
+  theme(axis.text = element_text(size=20)
+        , axis.title = element_text(size=24,face="bold"))
 ```
