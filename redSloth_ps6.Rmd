@@ -88,3 +88,8 @@ ggplot(data = N) +
   theme(axis.text = element_text(size=20)
         , axis.title = element_text(size=24,face="bold"))
 ```
+
+##Power: Practical Answers
+
+* Yes, you can expect to reject the null more than 90% of the time
+* To Reject 80% of the time, you would need about 9 obserations
